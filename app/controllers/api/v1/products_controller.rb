@@ -18,7 +18,7 @@ class Api::V1::ProductsController < ApplicationController
     @product = Product.new(product_params)
 
     if @product.save
-      render :show, status: :created, location: @product
+      render :show, status: :created, location: api_v1_product_url(@product)
     else
       render json: @product.errors, status: :unprocessable_entity
     end
@@ -28,7 +28,7 @@ class Api::V1::ProductsController < ApplicationController
   # PATCH/PUT /products/1.json
   def update
     if @product.update(product_params)
-      render :show, status: :ok, location: @product
+      render :show, status: :ok, location: api_v1_product_url(@product)
     else
       render json: @product.errors, status: :unprocessable_entity
     end
