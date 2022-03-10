@@ -28,4 +28,18 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
 
       assert_response :unprocessable_entity
     end
+
+    test "should update user" do
+      patch api_v1_user_url(@user),
+      params: { user: { email: @user.email } },
+      headers: { Authorization: JsonWebToken.encode(user_id:
+      @user.id) },
+      as: :json
+      assert_response :success
+      end
+      test "should forbid update user" do
+      patch api_v1_user_url(@user), params: { user: { email:
+      @user.email } }, as: :json
+      assert_response :forbidden
+      end
 end
